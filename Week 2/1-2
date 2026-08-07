@@ -1,0 +1,48 @@
+from google.colab import drive
+drive.mount('/content/drive')
+import os
+os.listdir('/content/drive/MyDrive/Colab')
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv('/content/drive/MyDrive/Colab/placement_dataset.csv')
+
+plt.figure(figsize=(6,4))
+
+sns.countplot(data=df, x="Branch")
+
+plt.title("Placement Count by Branch")
+plt.xlabel("Branch")
+plt.ylabel("Count")
+
+plt.show()
+#1st Graph
+plt.figure(figsize=(6,4))
+
+plt.hist(df["CGPA"].dropna(),
+         bins=15,
+         color="skyblue",
+         edgecolor="black")
+
+plt.title("CGPA Distribution")
+plt.xlabel("CGPA")
+plt.ylabel("Frequency")
+
+plt.show()
+#2nd Graph
+plt.figure(figsize=(6,5))
+
+numeric_df = df.select_dtypes(include="number")
+
+corr_matrix = numeric_df.corr()
+
+sns.heatmap(corr_matrix,
+            annot=True,
+            cmap="coolwarm",
+            fmt=".2f")
+
+plt.title("Correlation Heatmap")
+
+plt.show()
+#3rd Graph
